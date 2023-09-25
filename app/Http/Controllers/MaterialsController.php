@@ -70,11 +70,24 @@ class MaterialsController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        try {
+            if ($request->validate([
+                'id' => ['required', 'int'],
+                'fields' => ['required', 'array']
+            ])) {
+                $attr = [];
+                foreach($request->fields as $key => $value) $attr[$key] = $value;
+                Material::where('id', $request->id)->update($attr);
+                return response(['status' => true]);
+            }
+            return response(['status' => false]);
+        } catch(\Exception $e) {
+            return response([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 }

@@ -33,7 +33,8 @@ class ProjectsController extends Controller
     {
         try {
             $isValidationStatus = $request->validate([
-                'name' => ['required', 'string']
+                'name' => ['required', 'string'],
+                'descr' => ['string']
             ]);
             if ($isValidationStatus) {
                 $isStatusCreated = Project::create([

@@ -30,11 +30,13 @@ class MaterialsController extends Controller
         try {
             $isValidationStatus = $request->validate([
                 'name' => ['required', 'string'],
-                'count' => ['int']
+                'img' => ['string'],
+                'count' => ['int'],
             ]);
             if ($isValidationStatus) {
                 $isStatusCreated = Material::create([
                     'name' => $request->name,
+                    'img' => $request->img ?? '',
                     'count' => $request->count ?? 0
                 ]);
             }

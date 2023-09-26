@@ -11,11 +11,10 @@ class TasksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        try {
-            $tasks = Task::where('project_id', $request->id)->get();
-            return response( (count($tasks) > 0) ? $tasks[0] : "not found");
+        try {    
+            return response(Task::all());
         } catch(\Exception $e) {
             return response([
                 'status' => false,
